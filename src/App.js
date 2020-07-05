@@ -1,26 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
+import Lifecycle from "./test/lifecycle";
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+class App extends Component {
+  state = {
+    visible: true,
+    ignoreProp: 0,
+  };
 
+  ignoreProp = () => this.setState({
+    ignoreProp: Math.random()
+  });
+
+  render() {
+    return(
+    <div className="App">
+      {this.state.visible ? <Lifecycle ignoreProp={this.state.ignoreProp}/> : null}
+      <button onClick={this.ignoreProp}>ignoreProp</button>
+      <button onClick={()=>{this.setState({visible: !this.state.visible});}}>
+        toggle counter
+      </button>
+    </div>)
+  }
+}
 export default App;
